@@ -1,0 +1,60 @@
+var createScene = function () {
+    var scene = new BABYLON.Scene(engine);
+    var camera = new BABYLON.ArcRotateCamera("maincamera",1,1,5)
+    camera.setTarget(BABYLON.Vector3.Zero());
+    camera.attachControl(canvas, true);
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    light.intensity = 0.7;
+
+
+    var meshName = "PorscheCar.glb";
+    var meshRooturl = "/asset/PorscheCar/" ;
+    var materialName = "NM_CarPaint";
+    var materialFilePath = "/asset/PorscheCar/" + materialName + ".json";
+    var meshScale=0.5;
+
+//    BABYLON.NodeMaterial.ParseFromFileAsync(materialName, materialFilePath, scene).then(carpaintmaterial => {
+//         BABYLON.SceneLoader.ImportMeshAsync("", meshRooturl, meshName, this.scene).then((result) => {      
+//         });
+//     });
+
+      BABYLON.SceneLoader.ImportMesh(
+           "", 
+           meshRooturl, 
+           meshName, 
+           this.scene,
+            (meshes) => {
+                let SM_W_Shell05 = scene.getMeshByName("SM_W_Shell05");
+                let SM_W_DoorShell_LF_Door = scene.getMeshByName("SM_W_DoorShell_LF_Door");
+                let SM_W_DoorShell_LB_Door = scene.getMeshByName("SM_W_DoorShell_LB_Door");
+                let SM_W_trunk_Trunk_Door = scene.getMeshByName("SM_W_trunk_Trunk_Door");
+                let SM_W_DoorShell_RF_Door = scene.getMeshByName("SM_W_DoorShell_RF_Door");
+                let SM_W_DoorShell_RB_Door = scene.getMeshByName("SM_W_DoorShell_RB_Door");
+                let SM_W_Shell06 = scene.getMeshByName("SM_W_Shell06");
+                let SM_W_inside_Shelt = scene.getMeshByName("SM_W_inside_Shelt");
+
+
+                BABYLON.NodeMaterial.ParseFromFileAsync(
+                    materialName,
+                    materialFilePath,
+                    scene).then((carpaint_mat) => {
+                        SM_W_Shell05.material = carpaint_mat;
+                        SM_W_DoorShell_LF_Door.material = carpaint_mat;
+                        SM_W_DoorShell_LF_Door.material = carpaint_mat;
+                        SM_W_DoorShell_LB_Door.material = carpaint_mat;
+                        SM_W_trunk_Trunk_Door.material = carpaint_mat;
+                        SM_W_DoorShell_RF_Door.material = carpaint_mat;
+                        SM_W_DoorShell_RB_Door.material = carpaint_mat;
+                        SM_W_Shell06.material = carpaint_mat;
+                        SM_W_inside_Shelt.material = carpaint_mat;
+                    });
+
+
+
+            }
+        );
+
+    
+
+    return scene;
+};

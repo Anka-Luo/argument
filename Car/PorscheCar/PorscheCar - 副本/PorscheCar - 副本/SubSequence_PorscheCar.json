@@ -1,0 +1,113 @@
+{
+    "Mesh": [
+        {
+            "uri": "PorscheCar__.glb",
+            "name": "Car"
+        }
+    ],
+    "Material": [
+        {
+            "uri": "NM_CarPaint.json",
+            "name": "NM_CarPaint",
+            "meshName": [
+                "SM_W_Shell05",
+                "SM_W_DoorShell_LF_Door",
+                "SM_W_DoorShell_LB_Door",
+                "SM_W_trunk_Trunk_Door",
+                "SM_W_DoorShell_RF_Door",
+                "SM_W_DoorShell_RB_Door",
+                "SM_W_Shell06",
+                "SM_W_inside_Shelt"
+            ]
+        },
+
+        {
+            "uri": "NM_WindShield.json",
+            "name": "NM_WindShield",
+            "meshName": [
+                "SM_W_Glass05",
+                "SM_W_LF_Door_Glass",
+                "SM_W_LB_Door_Glass",
+                "SM_W_RF_Door_Glass",
+                "SM_W_RB_Door_Glass",
+                "SM_W_Windshield_Glass",
+                "SM_W_Acces_Door",
+                "SM_W_Glass_01",
+                "SM_W_Trunk_Glass",
+                "SM_W_Glass07",
+                "SM_W_Glass_RR_Door",
+                "SM_W_Glass_02",
+                "SM_W_Glass_07",
+                "SM_W_Glass_04"
+            ]
+        },
+        {
+            "uri": "NM_WhiteLight.json",
+            "name": "NM_WhiteLight",
+            "meshName": [
+                "SM_WhiteLight_LF",
+                "SM_WhiteLight_RF"
+               
+            ]
+        },
+        {
+            "uri": "NM_ReflectionPlane.json",
+            "name": "NM_ReflectionPlane",
+            "meshName": [
+                "SM_ReflectionPlane"
+            ]
+        }
+    ],
+    "MeshTrack": [
+        {
+            "targetName": "Car",
+            "index": 0,
+            "loop": true,
+            "keyFrame": [
+                {
+                    "frame": 0,
+                    "value": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "property": "scaling"
+        },
+        {
+            "targetName": "Car",
+            "index": 0,
+            "loop": true,
+            "keyFrame": [
+                {
+                    "frame": 0,
+                    "value": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            ],
+            "property": "position"
+        },
+        {
+            "targetName": "Car",
+            "index": 0,
+            "loop": true,
+            "keyFrame": [
+                {
+                    "frame": 0,
+                    "value": [
+                        0,
+                        0,
+                        0
+                    ]
+                }
+            ],
+            "property": "rotation"
+        }
+    ],
+    "Type": "Car"
+}
+   
