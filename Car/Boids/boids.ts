@@ -1,46 +1,54 @@
 /* eslint-disable no-var */
-import "babylon-mmd/esm/Loader/Optimized/bpmxLoader";
+// import "babylon-mmd/esm/Loader/Optimized/bpmxLoader";
 import "babylon-mmd/esm/Runtime/Animation/mmdRuntimeCameraAnimation";
 import "babylon-mmd/esm/Runtime/Animation/mmdRuntimeModelAnimation";
 import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/core/Rendering/geometryBufferRendererSceneComponent";
 
-import type { Engine, Scene } from "@babylonjs/core";
+import { type Engine, type Scene, SceneLoader } from "@babylonjs/core";
 import * as BABYLON from "@babylonjs/core";
+import { GLTFFileLoader } from "@babylonjs/loaders";
 
-// import type { MmdStandardMaterialBuilder } from "babylon-mmd/esm/Loader/mmdStandardMaterialBuilder";
-// import { MmdPlayerControl } from "babylon-mmd/esm/Runtime/Util/mmdPlayerControl";
-import type { ISceneBuilder } from "./baseRuntime";/**
+/**
 * 场景构建器类，用于创建和配置Babylon.js场景以及加载MMD模型和相关资源。
 * /
 * @export
 * @class SceneBuilder
 * @implements {ISceneBuilder} 异步构建场景的接口
 */
+// import type { MmdStandardMaterialBuilder } from "babylon-mmd/esm/Loader/mmdStandardMaterialBuilder";
+// import { MmdPlayerControl } from "babylon-mmd/esm/Runtime/Util/mmdPlayerControl";
+import type { ISceneBuilder } from "./baseRuntime";
 export class SceneBuilder implements ISceneBuilder {
     public async build(_canvas: HTMLCanvasElement, engine: Engine): Promise<Scene> {
-
-
         const scene = new BABYLON.Scene(engine);
-        // scene.debugLayer.show({
-        //     embedMode: true
-        // });
+        // const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 100, height: 100 }, scene);
+        const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+        sphere.position.x = 15;
+        sphere.outlineColor = BABYLON.Color3.Red();
+        const sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere2", { diameter: 2 }, scene);
+        sphere2.position.x = -15;
+        // ground.position.y = -1;
+        // 0ground.outlineColor = BABYLON.Color3.Red();
 
-        const camera = new BABYLON.ArcRotateCamera("camera1", 0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
-        camera.setPosition(new BABYLON.Vector3(0, 0, -20));
+        const camera = new BABYLON.ArcRotateCamera("camera1", 0, 0, 35, new BABYLON.Vector3(0, 0, 0), scene);
+        // camera.setPosition(new BABYLON.Vector3(0, 0, 35));
         camera.attachControl(_canvas, true);
         const skyLight = new BABYLON.HemisphericLight("sky", new BABYLON.Vector3(0, 1.0, 0), scene);
         skyLight.intensity = 1.0;
-
+        SceneLoader.RegisterPlugin(new GLTFFileLoader());
+        // const mmdMesh = await SceneLoader.ImportMeshAsync("", "src/Boids/", "SM_CownFish_lowpoly100.glb", scene)
+        //     .then((result) => result.meshes[0] as BABYLON.Mesh);
+        // mmdMesh.position.y = 1;
         //
         const birds: any[] = [];
         const meshName = "SM_CownFish_lowpoly100.glb";
-        const meshRooturl = "./Boids/";
+        const meshRooturl = "src/Boids/";
         const materialName = "NM_Fish";
-        const materialFilePath = "./Boids/" + materialName + ".json";
+        const materialFilePath = "src/Boids/" + materialName + ".json";
         const meshScale = 0.5;
-
+        // 异步加载模型
         BABYLON.NodeMaterial.ParseFromFileAsync(materialName, materialFilePath, scene).then(birdmaterial => {
             BABYLON.SceneLoader.ImportMeshAsync("", meshRooturl, meshName, scene).then((result) => {
                 const mesh_01 = result.meshes[1] as BABYLON.Mesh;
